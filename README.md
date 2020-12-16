@@ -2,7 +2,7 @@
 Aplicación desarrollada en Ionic 4 + Angular que consume un servicio REST propio para visualizar distintos indicadores.
 
 ## Backlog desarrollo
-- [ ] Iniciar proyecto
+- [X] Iniciar proyecto
 - [ ] Crear vista SplashScreen (Precarga)
 - [ ] Crear vista Integrantes
 - [ ] Crear vista de selección para gráfico
