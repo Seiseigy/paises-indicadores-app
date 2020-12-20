@@ -2,4 +2,11 @@ ion-toolbar {
     --background: var(--ion-color-primary);
     --color: var(--ion-color-primary-contrast);
 }
+ion-title {
+    text-align: center;
+}
+
+ion-card-title, ion-card-content {
+    text-align: center;
+}
 

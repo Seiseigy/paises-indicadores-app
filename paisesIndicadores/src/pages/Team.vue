@@ -12,6 +12,7 @@
                 </ion-card-header>
                 <ion-card-content>
                     Le gusta jugar
+                    <br>
                     <a href="https://github.com/soge99/">Repositorio GitHub</a>
                 </ion-card-content>
             </ion-card>
@@ -21,6 +22,7 @@
                 </ion-card-header>
                 <ion-card-content>
                     Le gusta jugar
+                    <br>
                     <a href="https://github.com/Riserek">Repositorio GitHub</a>
                 </ion-card-content>
             </ion-card>
@@ -30,6 +32,7 @@
                 </ion-card-header>
                 <ion-card-content>
                     Le gusta jugar
+                    <br>
                     <a href="https://github.com/seiseigy">Repositorio GitHub</a>
                 </ion-card-content>
             </ion-card>
