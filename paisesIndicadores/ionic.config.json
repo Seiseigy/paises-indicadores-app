@@ -1,0 +1,7 @@
+{
+  "name": "paisesIndicadores",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}
