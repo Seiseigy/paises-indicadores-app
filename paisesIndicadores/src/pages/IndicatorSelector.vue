@@ -12,7 +12,7 @@
                             @ionChange="firstCountrySelected= $event.target.value" 
                             v-on:click="updateCountriesList()">
                         <ion-select-option v-for="country in hiddenCountries"
-                         v-bind:key="country.code" v-bind:value="country.name">
+                         v-bind:key="country.name" v-bind:value="country.code">
                          {{country.name}}
                         </ion-select-option>
                 </ion-select>
@@ -23,7 +23,7 @@
                             @ionChange="secondCountrySelected= $event.target.value" 
                             v-on:click="updateCountriesList()">
                         <ion-select-option v-for="country in hiddenCountries" 
-                        v-bind:key="country.code" v-bind:value="country.name">
+                        v-bind:key="country.name" v-bind:value="country.code">
                         {{country.name}}
                         </ion-select-option>
                 </ion-select>
@@ -32,7 +32,7 @@
                 <ion-label>Indicador</ion-label>
                 <ion-select v-model="indicatorSelected" @ionChange="indicatorSelected= $event.target.value">
                         <ion-select-option v-for="indicator in indicators" 
-                        v-bind:key="indicator[1]" v-bind:value="indicator[0]">
+                        v-bind:key="indicator[0]" v-bind:value="indicator[1]">
                         {{indicator[0]}}
                         </ion-select-option>
                 </ion-select>
@@ -42,7 +42,7 @@
                 <ion-select v-model="firstYearSelected" 
                 @ionChange="firstYearSelected= $event.target.value" v-on:click="updateYearList('begin')">
                         <ion-select-option v-for="year in hiddenYears" 
-                        v-bind:key="year" v-bind:value="year">
+                        v-bind:key="year" v-bind:value="Number(year)">
                         {{year}}
                         </ion-select-option>
                 </ion-select>
@@ -52,7 +52,7 @@
                 <ion-select v-model="secondYearSelected" 
                 @ionChange="secondYearSelected= $event.target.value" v-on:click="updateYearList('end')">
                         <ion-select-option v-for="year in hiddenYears" 
-                        v-bind:key="year" v-bind:value="year">
+                        v-bind:key="year" v-bind:value="Number(year)">
                         {{year}}
                         </ion-select-option>
                 </ion-select>
@@ -132,7 +132,7 @@ export default {
         updateCountriesList(){
             this.hiddenCountries = []
             this.countries.forEach(element => {
-                if(element.name != this.firstCountrySelected && element.name != this.secondCountrySelected){
+                if(element.code != this.firstCountrySelected && element.code != this.secondCountrySelected){
                     this.hiddenCountries.push(element);
                 }
             });
@@ -156,6 +156,8 @@ export default {
         createChart() {
             // Podría incluirse aquí una instancia de carga aquí.
             // Verificar que todos los datos sean correctos.
+
+            this.$store.state.userInput.firstCountrySelected = this.firstCountrySelected;
             this.$store.state.userInput.secondCountrySelected = this.secondCountrySelected;
             this.$store.state.userInput.indicatorSelected = this.indicatorSelected;
             this.$store.state.userInput.firstYearSelected = this.firstYearSelected;
