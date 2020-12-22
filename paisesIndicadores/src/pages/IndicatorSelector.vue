@@ -39,8 +39,9 @@
             </ion-item>
             <ion-item>
                 <ion-label>Año de inicio</ion-label>
-                <ion-select v-model="firstYearSelected" @ionChange="firstYearSelected= $event.target.value">
-                        <ion-select-option v-for="year in years" 
+                <ion-select v-model="firstYearSelected" 
+                @ionChange="firstYearSelected= $event.target.value" v-on:click="updateYearList('begin')">
+                        <ion-select-option v-for="year in hiddenYears" 
                         v-bind:key="year" v-bind:value="year">
                         {{year}}
                         </ion-select-option>
@@ -48,8 +49,9 @@
             </ion-item>
             <ion-item>
                 <ion-label>Año de término</ion-label>
-                <ion-select v-model="secondYearSelected" @ionChange="secondYearSelected= $event.target.value">
-                        <ion-select-option v-for="year in years" 
+                <ion-select v-model="secondYearSelected" 
+                @ionChange="secondYearSelected= $event.target.value" v-on:click="updateYearList('end')">
+                        <ion-select-option v-for="year in hiddenYears" 
                         v-bind:key="year" v-bind:value="year">
                         {{year}}
                         </ion-select-option>
@@ -94,7 +96,8 @@ export default {
             firstYearSelected: '',
             secondYearSelected: '',
             hiddenCountries: [],
-            years: []
+            years: [],
+            hiddenYears: []
         }
     },
     async mounted(){
@@ -129,6 +132,22 @@ export default {
                     this.hiddenCountries.push(element);
                 }
             });
+        },
+        updateYearList(state){
+            this.hiddenYears = []
+            if(state == 'begin'){
+                this.years.forEach(element => {
+                    if(this.secondYearSelected == '' || element < Number(this.secondYearSelected)){
+                        this.hiddenYears.push(element);
+                    }
+                })
+            }else{
+                this.years.forEach(element => {
+                    if(element > Number(this.firstYearSelected)){
+                        this.hiddenYears.push(element);
+                    }
+                });
+            }
         },
     }
    
