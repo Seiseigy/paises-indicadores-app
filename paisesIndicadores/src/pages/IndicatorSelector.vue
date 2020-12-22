@@ -5,7 +5,7 @@
                 <ion-title>Indicadores</ion-title>
             </ion-toolbar>
         </ion-header>
-        <ion-content>
+        <ion-content class="inputBox">
             <ion-item>
                 <ion-label>Primer país</ion-label>
                 <ion-select v-model="firstCountrySelected" 
@@ -64,20 +64,25 @@
             <!-- <span><br> Año de término: {{secondYearSelected}}<br></span> -->
         </ion-content>
         <ion-footer>
-            <ion-button color="primary" expand="full">Generar gráfico</ion-button>
+            <ion-button v-on:click="createChart" color="primary" expand="full" 
+            router-link="/indicators-chart" size="large">
+            Generar gráfico
+            </ion-button>
         </ion-footer>
     </ion-page>
 </template>
 
 <script>
-import { IonPage, IonHeader, IonTitle, IonContent} from "@ionic/vue";
+import { IonPage, IonHeader, IonTitle, IonContent, IonButton} from "@ionic/vue";
+
 const axios = require('axios');
 export default {
     components: {
         IonPage,
         IonHeader,
         IonTitle,
-        IonContent 
+        IonContent,
+        IonButton 
     },
     data () {
         return {
@@ -99,7 +104,7 @@ export default {
             secondYearSelected: '',
             hiddenCountries: [],
             years: [],
-            hiddenYears: []
+            hiddenYears: [],
         }
     },
     async mounted(){
@@ -123,9 +128,6 @@ export default {
         }
         this.years = years;
     },
-    computed: {
-
-    },
     methods: {
         updateCountriesList(){
             this.hiddenCountries = []
@@ -135,9 +137,9 @@ export default {
                 }
             });
         },
-        updateYearList(state){
+        updateYearList(choice){
             this.hiddenYears = []
-            if(state == 'begin'){
+            if(choice == 'begin'){
                 this.years.forEach(element => {
                     if(this.secondYearSelected == '' || element < Number(this.secondYearSelected)){
                         this.hiddenYears.push(element);
@@ -151,6 +153,14 @@ export default {
                 });
             }
         },
+        createChart() {
+            // Podría incluirse aquí una instancia de carga aquí.
+            // Verificar que todos los datos sean correctos.
+            this.$store.state.userInput.secondCountrySelected = this.secondCountrySelected;
+            this.$store.state.userInput.indicatorSelected = this.indicatorSelected;
+            this.$store.state.userInput.firstYearSelected = this.firstYearSelected;
+            this.$store.state.userInput.secondYearSelected = this.secondYearSelected;
+        }
     }
    
 }
