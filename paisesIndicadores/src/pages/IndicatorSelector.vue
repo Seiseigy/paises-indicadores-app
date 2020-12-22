@@ -6,31 +6,61 @@
             </ion-toolbar>
         </ion-header>
         <ion-content>
-            <!-- <select v-model="firstCountrySelected"> -->
-                <!-- <option v-for="country in countries" v-bind:key="country.code" v-bind:value="country.name">{{country.name}}</option> -->
-            <!-- </select> -->
-            <!-- <span>Seleccionado: {{firstCountrySelected}}</span> -->
             <ion-item>
                 <ion-label>Primer país</ion-label>
-                <ion-select v-model="firstCountrySelected" @ionChange="firstCountrySelected= $event.target.value" v-on:click="updateCountriesList()">
-                        <ion-select-option v-for="country in hiddenCountries" v-bind:key="country.code" v-bind:value="country.name">{{country.name}}</ion-select-option>
+                <ion-select v-model="firstCountrySelected" 
+                            @ionChange="firstCountrySelected= $event.target.value" 
+                            v-on:click="updateCountriesList()">
+                        <ion-select-option v-for="country in hiddenCountries"
+                         v-bind:key="country.code" v-bind:value="country.name">
+                         {{country.name}}
+                        </ion-select-option>
                 </ion-select>
             </ion-item>
             <ion-item>
                 <ion-label>Segundo país</ion-label>
-                <ion-select v-model="secondCountrySelected" @ionChange="secondCountrySelected= $event.target.value" v-on:click="updateCountriesList()">
-                        <ion-select-option v-for="country in hiddenCountries" v-bind:key="country.code" v-bind:value="country.name">{{country.name}}</ion-select-option>
+                <ion-select v-model="secondCountrySelected" 
+                            @ionChange="secondCountrySelected= $event.target.value" 
+                            v-on:click="updateCountriesList()">
+                        <ion-select-option v-for="country in hiddenCountries" 
+                        v-bind:key="country.code" v-bind:value="country.name">
+                        {{country.name}}
+                        </ion-select-option>
                 </ion-select>
             </ion-item>
             <ion-item>
                 <ion-label>Indicador</ion-label>
                 <ion-select v-model="indicatorSelected" @ionChange="indicatorSelected= $event.target.value">
-                        <ion-select-option v-for="indicator in indicators" v-bind:key="indicator[1]" v-bind:value="indicator[0]">{{indicator[0]}}</ion-select-option>
+                        <ion-select-option v-for="indicator in indicators" 
+                        v-bind:key="indicator[1]" v-bind:value="indicator[0]">
+                        {{indicator[0]}}
+                        </ion-select-option>
                 </ion-select>
             </ion-item>
+            <ion-item>
+                <ion-label>Año de inicio</ion-label>
+                <ion-select v-model="firstYearSelected" @ionChange="firstYearSelected= $event.target.value">
+                        <ion-select-option v-for="year in years" 
+                        v-bind:key="year" v-bind:value="year">
+                        {{year}}
+                        </ion-select-option>
+                </ion-select>
+            </ion-item>
+            <ion-item>
+                <ion-label>Año de término</ion-label>
+                <ion-select v-model="secondYearSelected" @ionChange="secondYearSelected= $event.target.value">
+                        <ion-select-option v-for="year in years" 
+                        v-bind:key="year" v-bind:value="year">
+                        {{year}}
+                        </ion-select-option>
+                </ion-select>
+            </ion-item>
+
             <span><br> Primer país: {{firstCountrySelected}} <br></span>
             <span><br> Segundo país: {{secondCountrySelected}}<br></span>
             <span><br> Indicador: {{indicatorSelected}}<br></span>
+            <span><br> Año de inicio: {{firstYearSelected}}<br></span>
+            <span><br> Año de término: {{secondYearSelected}}<br></span>
         </ion-content>
     </ion-page>
 </template>
@@ -61,10 +91,17 @@ export default {
             firstCountrySelected: '',
             secondCountrySelected: '',
             indicatorSelected: '',
-            hiddenCountries: []
+            firstYearSelected: '',
+            secondYearSelected: '',
+            hiddenCountries: [],
+            years: []
         }
     },
     async mounted(){
+        const startYear = 1960;
+        const endYear = 2020;
+
+        // Se realiza la conexión con Axios. Recordar que es una promesa
         const url = 'https://api.sebastian.cl/cpyd/api/v1/countries/all';
         const res_countries = await axios.get(url, {
         headers: {
@@ -73,6 +110,13 @@ export default {
         }
         })
         this.countries = res_countries.data;
+
+        // Se crea el arreglo de años
+        const years = [];
+        for(let i = startYear; i <= endYear; i++){
+            years.push(i);
+        }
+        this.years = years;
     },
     computed: {
 
@@ -85,7 +129,7 @@ export default {
                     this.hiddenCountries.push(element);
                 }
             });
-        }
+        },
     }
    
 }
