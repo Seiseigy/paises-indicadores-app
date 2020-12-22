@@ -57,13 +57,15 @@
                         </ion-select-option>
                 </ion-select>
             </ion-item>
-
-            <span><br> Primer país: {{firstCountrySelected}} <br></span>
-            <span><br> Segundo país: {{secondCountrySelected}}<br></span>
-            <span><br> Indicador: {{indicatorSelected}}<br></span>
-            <span><br> Año de inicio: {{firstYearSelected}}<br></span>
-            <span><br> Año de término: {{secondYearSelected}}<br></span>
+            <!-- <span><br> Primer país: {{firstCountrySelected}} <br></span> -->
+            <!-- <span><br> Segundo país: {{secondCountrySelected}}<br></span> -->
+            <!-- <span><br> Indicador: {{indicatorSelected}}<br></span> -->
+            <!-- <span><br> Año de inicio: {{firstYearSelected}}<br></span> -->
+            <!-- <span><br> Año de término: {{secondYearSelected}}<br></span> -->
         </ion-content>
+        <ion-footer>
+            <ion-button color="primary" expand="full">Generar gráfico</ion-button>
+        </ion-footer>
     </ion-page>
 </template>
 

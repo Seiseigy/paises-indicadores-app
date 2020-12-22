@@ -5,7 +5,7 @@ Aplicación desarrollada en Ionic 4 + Angular que consume un servicio REST propi
 - [X] Iniciar proyecto
 - [ ] Crear vista SplashScreen (Precarga)
 - [X] Crear vista Integrantes
-- [ ] Crear vista de selección para gráfico
+- [X] Crear vista de selección para gráfico
 - [ ] Crear vista de gráfico
 - [ ] Integración correcta de gráfico
 
