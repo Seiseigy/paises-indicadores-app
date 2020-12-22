@@ -6,6 +6,16 @@
             </ion-toolbar>
         </ion-header>
         <ion-content>
+            <!-- <ion-item>
+                <img src="@icon/bravo-icon.png" alt="Icono Bravo" class="BravoIcon">
+            </ion-item> -->
+            <ion-card class="BravoIconBox">
+                <ion-card-content>
+                    <a href="https://github.com/Seiseigy/paises-indicadores-app">
+                        <img src="../../public/assets/icon/bravo-icon.png" alt="Icono Bravo" >
+                    </a>
+                </ion-card-content>
+            </ion-card>
             <ion-card>
                 <ion-card-header>
                     <ion-card-title>Kevin Peralta</ion-card-title>

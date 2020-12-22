@@ -10,3 +10,10 @@ ion-card-title, ion-card-content {
     text-align: center;
 }
 
+.BravoIconBox {
+    width: 50%;
+    height: auto;
+    border: none;
+    margin-left: auto;
+    margin-right: auto;
+}
