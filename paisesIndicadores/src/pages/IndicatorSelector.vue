@@ -5,7 +5,12 @@
                 <ion-title>Indicadores</ion-title>
             </ion-toolbar>
         </ion-header>
-        <ion-content></ion-content>
+        <ion-content>
+            <select v-model="firstCountrySelected">
+                <option v-for="country in countries" v-bind:key="country.code" v-bind:value="country.name">{{country.name}}</option>
+            </select>
+            <span>Seleccionado: {{firstCountrySelected}}</span>
+        </ion-content>
     </ion-page>
 </template>
 
@@ -24,6 +29,7 @@ export default {
             countries: [],
             countries_names: [],
             indicators: [],
+            firstCountrySelected: ''
         }
     },
     async mounted(){
@@ -36,8 +42,10 @@ export default {
         this.countries = res_countries.data;
         this.countries.forEach(element => this.countries_names.push(element.name));
     },
-    methods: {
-
+    computed: {
+        options(){
+            return this.countries_names;
+        }
     }
    
 }
