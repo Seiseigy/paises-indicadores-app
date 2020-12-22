@@ -12,8 +12,14 @@
             <!-- <span>Seleccionado: {{firstCountrySelected}}</span> -->
             <ion-item>
                 <ion-label>Primer país</ion-label>
-                <ion-select v-model="firstCountrySelected" @ionChange="firstCountrySelected= $event.target.value">
-                        <ion-select-option v-for="country in countries" v-bind:key="country.code" v-bind:value="country.name">{{country.name}}</ion-select-option>
+                <ion-select v-model="firstCountrySelected" @ionChange="firstCountrySelected= $event.target.value" v-on:click="updateCountriesList()">
+                        <ion-select-option v-for="country in hiddenCountries" v-bind:key="country.code" v-bind:value="country.name">{{country.name}}</ion-select-option>
+                </ion-select>
+            </ion-item>
+            <ion-item>
+                <ion-label>Segundo país</ion-label>
+                <ion-select v-model="firstCountrySelected" @ionChange="firstCountrySelected= $event.target.value" v-on:click="updateCountriesList()">
+                        <ion-select-option v-for="country in hiddenCountries" v-bind:key="country.code" v-bind:value="country.name">{{country.name}}</ion-select-option>
                 </ion-select>
             </ion-item>
             <span>Seleccionado: {{firstCountrySelected}}</span>
@@ -34,10 +40,10 @@ export default {
     data () {
         return {
             countries: [],
-            countries_names: [],
             indicators: [],
             firstCountrySelected: '',
-            secondCountrySelected: ''
+            secondCountrySelected: '',
+            hiddenCountries: []
         }
     },
     async mounted(){
@@ -49,9 +55,19 @@ export default {
         }
         })
         this.countries = res_countries.data;
-        this.countries.forEach(element => this.countries_names.push(element.name));
     },
     computed: {
+
+    },
+    methods: {
+        updateCountriesList(){
+            this.hiddenCountries = []
+            this.countries.forEach(element => {
+                if(element.name != this.firstCountrySelected && element.name != this.secondCountrySelected){
+                    this.hiddenCountries.push(element);
+                }
+            });
+        }
     }
    
 }
