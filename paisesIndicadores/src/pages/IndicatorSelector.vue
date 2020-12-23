@@ -62,6 +62,7 @@
             <!-- <span><br> Indicador: {{indicatorSelected}}<br></span> -->
             <!-- <span><br> Año de inicio: {{firstYearSelected}}<br></span> -->
             <!-- <span><br> Año de término: {{secondYearSelected}}<br></span> -->
+        <ion-icon name="arrow-back"></ion-icon>
         </ion-content>
         <ion-footer>
             <ion-button v-on:click="createChart" color="primary" expand="full" 
@@ -73,7 +74,7 @@
 </template>
 
 <script>
-import { IonPage, IonHeader, IonTitle, IonContent, IonButton} from "@ionic/vue";
+import { IonPage, IonHeader, IonTitle, IonContent, IonButton, IonIcon} from "@ionic/vue";
 
 const axios = require('axios');
 
@@ -83,7 +84,8 @@ export default {
         IonHeader,
         IonTitle,
         IonContent,
-        IonButton 
+        IonButton,
+        IonIcon
     },
     data () {
         return {

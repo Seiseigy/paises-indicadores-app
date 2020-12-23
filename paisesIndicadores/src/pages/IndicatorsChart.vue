@@ -2,12 +2,20 @@
 
 <ion-page>
   <ion-header>
+      <!-- <ion-toolbar> -->
+        <!-- <ion-buttons slot="start"> -->
+        <!-- <ion-back-button href="/indicator-selector">Atrás</ion-back-button> -->
+        <!-- </ion-buttons> -->
+
+      <!-- </ion-toolbar> -->
       <ion-toolbar>
         <ion-buttons slot="start">
-        <ion-back-button href="/indicator-selector">Atrás</ion-back-button>
+            <ion-item routerLink="/indicator-selector" id="back-arrow-box" v-on:click="reload()">
+                <img style="width:50px; height:50px; background-color: transparent" src='../../public/assets/BackArrow.png' alt="Icono BackArrow" >
+            </ion-item>
         </ion-buttons>
-        <ion-title>
-          {{this.$store.state.userInput.firstCountrySelected}} v/s {{this.$store.state.userInput.secondCountrySelected}}
+        <ion-title id="chart-title">
+        {{this.$store.state.userInput.firstCountrySelected}} v/s {{this.$store.state.userInput.secondCountrySelected}}
         </ion-title>
       </ion-toolbar>
   </ion-header>
@@ -22,14 +30,15 @@
         <canvas id="myChart" width="400" height="400"></canvas>
       </ion-card-content>
     </ion-card>
+  <ion-icon name="arrowBack"></ion-icon>
   </ion-content>
 </ion-page>
 </template>
 
 <script>
 var Chart = require('chart.js');
-import { IonPage, IonHeader, IonTitle, IonContent } from "@ionic/vue";
-// import { LineChart } from "../components/LineChart";
+import { IonPage, IonHeader, IonTitle, IonContent, IonToolbar, IonItem} from "@ionic/vue";
+
 
 const axios = require('axios');
 
@@ -39,7 +48,8 @@ export default {
     IonHeader,
     IonTitle,
     IonContent,
-    // LineChart
+    IonToolbar,
+    IonItem
   },
   data () {
     return {
@@ -67,7 +77,7 @@ export default {
 
     // Se realiza la conexión con Axios. Recordar que es una promesa
     const url = 'https://api.sebastian.cl/cpyd/api/v1/indicators/info';
-
+    
     const res_first_country = await axios.post(url, this.firstCountryReq, {
       headers: {
         "X-API-APP": 'bravo',
@@ -80,7 +90,7 @@ export default {
         "X-API-KEY": 'ede6842e-d16c-4dbf-a7a0-c3856f0140f8'
       }
     })
-
+    
     // Se tratan los datos para dejarla en el formato para Chart.js
     res_first_country.data.forEach(element => {
       const {
@@ -90,7 +100,6 @@ export default {
 
       this.firstCountryData.push({year, total:value});
     });
-    console.log(this.firstCountryData);
     res_second_country.data.forEach(element => {
       const {
         year,
@@ -100,16 +109,14 @@ export default {
         this.secondCountryData.push({year, total:value});
       }
     });
-
     let ctx = document.getElementById('myChart');
-    console.log("Holi");
-    console.log(this.firstCountryData);
     var firstCountryName = res_first_country.data[0].country.name;
     var secondCountryName = res_second_country.data[0].country.name;
+    var labelsChart = this.getLabels(this.firstCountryData,this.secondCountryData);
     var myChart = new Chart(ctx, {
     type: 'line',
     data: {
-        labels: this.getLabels(this.firstCountryData,this.secondCountryData),
+        labels: labelsChart ,
         datasets: [
           {
             label: firstCountryName,
@@ -176,6 +183,10 @@ export default {
     getLastIndex(array) {
       return array.length - 1;
     },
+    reload() {
+      console.log(this.$store.status.userInput);
+      this.$store.status.userInput = {};
+    }
   }
 }
 
@@ -185,5 +196,14 @@ export default {
   .small {
     max-width: 600px;
     margin:  150px auto;
+  }
+
+  #back-arrow-box {
+    background-color: transparent;
+    --background: transparent;
+  }
+
+  #chart-title {
+    padding-right: 28%;
   }
 </style>
