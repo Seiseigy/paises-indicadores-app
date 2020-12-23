@@ -21,3 +21,6 @@ ion-card-title, ion-card-content {
     background-color: mediumorchid;
 }
 
+#myBoxChart {
+    margin-top: 30%;
+}

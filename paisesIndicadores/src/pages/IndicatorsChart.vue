@@ -6,17 +6,30 @@
         <ion-buttons slot="start">
         <ion-back-button href="/indicator-selector">Atrás</ion-back-button>
         </ion-buttons>
-        <ion-title>Gráfico</ion-title>
+        <ion-title>
+          {{this.$store.state.userInput.firstCountrySelected}} v/s {{this.$store.state.userInput.secondCountrySelected}}
+        </ion-title>
       </ion-toolbar>
   </ion-header>
   <ion-content>
-    <ion-item v-for="option in userInput" v-bind:key="option"> {{option}}</ion-item>
+    <ion-card id="myBoxChart">
+      <ion-header>
+        <ion-title>
+        {{this.$store.state.userInput.indicatorSelected}}
+        </ion-title>
+      </ion-header>
+      <ion-card-content>
+        <canvas id="myChart" width="400" height="400"></canvas>
+      </ion-card-content>
+    </ion-card>
   </ion-content>
 </ion-page>
 </template>
 
 <script>
+var Chart = require('chart.js');
 import { IonPage, IonHeader, IonTitle, IonContent } from "@ionic/vue";
+// import { LineChart } from "../components/LineChart";
 
 const axios = require('axios');
 
@@ -25,7 +38,8 @@ export default {
     IonPage,
     IonHeader,
     IonTitle,
-    IonContent
+    IonContent,
+    // LineChart
   },
   data () {
     return {
@@ -46,9 +60,11 @@ export default {
         "X-API-KEY": 'ede6842e-d16c-4dbf-a7a0-c3856f0140f8'
       }, 
       firstCountryData: [],
+      secondCountryData: [],
     }
   },
   async mounted(){
+
     // Se realiza la conexión con Axios. Recordar que es una promesa
     const url = 'https://api.sebastian.cl/cpyd/api/v1/indicators/info';
 
@@ -64,17 +80,110 @@ export default {
         "X-API-KEY": 'ede6842e-d16c-4dbf-a7a0-c3856f0140f8'
       }
     })
-    console.log(res_first_country);
-    console.log(res_second_country);
 
+    // Se tratan los datos para dejarla en el formato para Chart.js
+    res_first_country.data.forEach(element => {
+      const {
+        year,
+        value
+      } = element;
+
+      this.firstCountryData.push({year, total:value});
+    });
+    console.log(this.firstCountryData);
+    res_second_country.data.forEach(element => {
+      const {
+        year,
+        value
+      } = element;
+      if(value!=0){
+        this.secondCountryData.push({year, total:value});
+      }
+    });
+
+    let ctx = document.getElementById('myChart');
+    console.log("Holi");
+    console.log(this.firstCountryData);
+    var firstCountryName = res_first_country.data[0].country.name;
+    var secondCountryName = res_second_country.data[0].country.name;
+    var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: this.getLabels(this.firstCountryData,this.secondCountryData),
+        datasets: [
+          {
+            label: firstCountryName,
+            data: this.firstCountryData.map(el => el.total),
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+            ],
+            borderWidth: 1
+        },
+        {
+            label: secondCountryName,
+            data: this.secondCountryData.map(el => el.total),
+            backgroundColor: [
+                'rgba(73, 41, 2552, 0.2)',
+            ],
+            borderColor: [
+                'rgba(73, 41, 2552, 1)',
+
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+      }
+    });
+    console.log(myChart);    
   },
   computed: {
     userInput() {
-      console.log(this.$store.getters.userInput);
       return this.$store.getters.userInput;
     }
+  },
+  methods: {
+    // Definir cuáles serán las dimensiones en años del gráfico
+    getLabels(data_country1, data_country2){
+      let startYear = 1960;
+      let endYear = 2020;
+      if(data_country1[0].year <= data_country2[0].year){
+        startYear = data_country1[0].year;
+      } else {
+        startYear = data_country2[0].year;
+      }
+      if(data_country1[this.getLastIndex(data_country1)].year >= data_country2[this.getLastIndex(data_country2)].year){
+       endYear = data_country1[this.getLastIndex(data_country1)].year;
+      } else {
+        endYear = data_country2[this.getLastIndex(data_country2)].year;
+      }
+      let myLabels = [];
+      for(let i = startYear; i<=endYear; i++){
+        myLabels.push(i);
+      }
+      return myLabels;
+    },
+    getLastIndex(array) {
+      return array.length - 1;
+    },
   }
-  
 }
 
 </script>
+
+<style>
+  .small {
+    max-width: 600px;
+    margin:  150px auto;
+  }
+</style>
