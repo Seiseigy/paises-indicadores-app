@@ -158,14 +158,14 @@ export default {
       let startYear = 1960;
       let endYear = 2020;
       if(data_country1[0].year <= data_country2[0].year){
-        startYear = data_country1[0].year;
-      } else {
         startYear = data_country2[0].year;
+      } else {
+        startYear = data_country1[0].year;
       }
       if(data_country1[this.getLastIndex(data_country1)].year >= data_country2[this.getLastIndex(data_country2)].year){
-       endYear = data_country1[this.getLastIndex(data_country1)].year;
+       endYear = data_country2[this.getLastIndex(data_country2)].year;
       } else {
-        endYear = data_country2[this.getLastIndex(data_country2)].year;
+        endYear = data_country1[this.getLastIndex(data_country1)].year;
       }
       let myLabels = [];
       for(let i = startYear; i<=endYear; i++){

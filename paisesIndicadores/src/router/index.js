@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
-import Home from '../pages/Home.vue';
 import Team from '../pages/Team.vue';
 import IndicatorSelector from '../pages/IndicatorSelector.vue';
 import IndicatorsChart from "../pages/IndicatorsChart.vue";
@@ -7,12 +6,7 @@ import IndicatorsChart from "../pages/IndicatorsChart.vue";
 const routes = [
   {
     path: '/',
-    redirect: '/home'
-  },
-  {
-    path: '/home',
-    name: 'Home',
-    component: Home
+    redirect: '/indicator-selector'
   },
   {
     path: '/team',
