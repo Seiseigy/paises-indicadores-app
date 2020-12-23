@@ -4,9 +4,9 @@ const store = createStore({
   state(){
     return {
       userInput: {
-        firstCountrySelected: 'Hola',
-        secondCountrySelected: 'Que',
-        indicatorSelected: 'Tal',
+        firstCountrySelected: '',
+        secondCountrySelected: '',
+        indicatorSelected: '',
         firstYearSelected: '',
         secondYearSelected: '',
       }

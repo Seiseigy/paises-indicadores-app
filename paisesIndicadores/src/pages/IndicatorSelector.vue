@@ -76,6 +76,7 @@
 import { IonPage, IonHeader, IonTitle, IonContent, IonButton} from "@ionic/vue";
 
 const axios = require('axios');
+
 export default {
     components: {
         IonPage,
@@ -156,7 +157,6 @@ export default {
         createChart() {
             // Podría incluirse aquí una instancia de carga aquí.
             // Verificar que todos los datos sean correctos.
-
             this.$store.state.userInput.firstCountrySelected = this.firstCountrySelected;
             this.$store.state.userInput.secondCountrySelected = this.secondCountrySelected;
             this.$store.state.userInput.indicatorSelected = this.indicatorSelected;
