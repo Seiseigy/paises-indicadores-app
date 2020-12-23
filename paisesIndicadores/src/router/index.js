@@ -2,11 +2,12 @@ import { createRouter, createWebHistory } from '@ionic/vue-router';
 import Team from '../pages/Team.vue';
 import IndicatorSelector from '../pages/IndicatorSelector.vue';
 import IndicatorsChart from "../pages/IndicatorsChart.vue";
+import SplashScreen from '../pages/SplashScreen.vue';
 
 const routes = [
   {
     path: '/',
-    redirect: '/indicator-selector'
+    redirect: '/splash'
   },
   {
     path: '/team',
@@ -22,6 +23,11 @@ const routes = [
     path: '/indicators-chart',
     name: 'IndicatorsChart',
     component: IndicatorsChart
+  },
+  {
+    path: '/splash',
+    name: 'SplashScreen',
+    component: SplashScreen
   }
 ]
 
