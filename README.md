@@ -22,10 +22,14 @@ Aplicación desarrollada en Ionic 4 + Vue.js que consume un servicio REST propio
 #### Opción 1: Correr proyecto en computador
 1. Clonar repositorio en el lugar deseado.
 2. Ingresar a la carpeta del proyecto Ionic e instalar dependencias.
-	> cd paisesIndicadores
-	>npm install
+	```
+	cd paisesIndicadores
+	npm install
+	```
 3. Iniciar servidor
-	> ionic serve
+	```
+	ionic serve
+	```
 4. Listo para visualizar en el puerto correspondiente. (Por defecto 8100). Es posible que se haya iniciado también en el 8200 Ionic Lab, que permite una visualización de Android e iOS.
 
 #### Opción 2: Instalar app en móvil Android.
