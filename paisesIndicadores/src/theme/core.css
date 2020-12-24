@@ -1,5 +1,9 @@
-ion-toolbar {
+ion-toolbar,ion-button {
     --background: var(--ion-color-primary);
+    --color: var(--ion-color-primary-contrast);
+}
+ion-fab-button,ion-fab{
+    --backgrund: var(--ion-color-primary);
     --color: var(--ion-color-primary-contrast);
 }
 ion-title {
@@ -18,7 +22,7 @@ ion-card-title, ion-card-content {
     margin-right: auto;
     margin-top: 3%;
     margin-bottom: 3%;
-    background-color: mediumorchid;
+    background-color: #5260ff;
 }
 
 #myBoxChart {
@@ -30,4 +34,6 @@ ion-card-title, ion-card-content {
     height: 50px;
     background-color: transparent;
 }
-
+#Tbutton{
+    margin-bottom:30px;
+}

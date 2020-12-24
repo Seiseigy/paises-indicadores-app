@@ -6,6 +6,11 @@
             </ion-toolbar>
         </ion-header>
         <ion-content>
+            <ion-fab vertical="bottom" horizontal="start" v-on:click="redirectToSelector()" >
+                <ion-fab-button id= "Tbutton" >
+                    <img src="../../public/assets/icon/grafico_icon.png" alt="">
+                </ion-fab-button>
+            </ion-fab>
             <!-- <ion-item>
                 <img src="@icon/bravo-icon.png" alt="Icono Bravo" class="BravoIcon">
             </ion-item> -->
@@ -48,9 +53,11 @@
             </ion-card>
         </ion-content>
     </ion-page>
+
 </template>
 <script>
 import { IonPage, IonHeader, IonTitle, IonContent} from "@ionic/vue";
+import router from '../router/index';
 export default {
     components: {
         IonPage,
@@ -58,6 +65,13 @@ export default {
         IonTitle,
         IonContent,
 
+    },
+    methods:{
+        redirectToSelector(){
+        router.push({ path: 'indicator-selector' });
     }
+    }
+    
 }
 </script>
+

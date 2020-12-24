@@ -10,7 +10,7 @@
       <!-- </ion-toolbar> -->
       <ion-toolbar>
         <ion-buttons slot="start">
-            <ion-item routerLink="/indicator-selector" id="back-arrow-box" v-on:click="reload()">
+            <ion-item routerLink="/indicator-selector" id="back-arrow-box" v-on:click="redirectToSelector(), cleanInfo()" >
                 <img style="width:50px; height:50px; background-color: transparent" src='../../public/assets/BackArrow.png' alt="Icono BackArrow" >
             </ion-item>
         </ion-buttons>
@@ -38,7 +38,7 @@
 <script>
 var Chart = require('chart.js');
 import { IonPage, IonHeader, IonTitle, IonContent, IonToolbar, IonItem} from "@ionic/vue";
-
+import router from '../router/index';
 
 const axios = require('axios');
 
@@ -109,6 +109,7 @@ export default {
         this.secondCountryData.push({year, total:value});
       }
     });
+    
     let ctx = document.getElementById('myChart');
     var firstCountryName = res_first_country.data[0].country.name;
     var secondCountryName = res_second_country.data[0].country.name;
@@ -186,6 +187,9 @@ export default {
     reload() {
       console.log(this.$store.status.userInput);
       this.$store.status.userInput = {};
+    },
+    redirectToSelector(){
+        router.push({ path: 'indicator-selector' });
     }
   }
 }

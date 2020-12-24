@@ -19,7 +19,7 @@ export default {
   mounted(){
     setTimeout(() => {
       router.push({ path: 'indicator-selector' })
-      },2000)
+      },3000)
   }
 }
    

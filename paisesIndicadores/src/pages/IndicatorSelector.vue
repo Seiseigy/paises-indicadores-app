@@ -6,7 +6,12 @@
             </ion-toolbar>
         </ion-header>
         <ion-content class="inputBox">
-            <ion-item>
+            <ion-fab vertical="bottom" horizontal="start" v-on:click="redirectToTeam()" >
+                <ion-fab-button id= "Tbutton" >
+                    <img src="../../public/assets/icon/grupo_icon.png" alt="">
+                </ion-fab-button>
+            </ion-fab>
+                <ion-item>
                 <ion-label>Primer país</ion-label>
                 <ion-select v-model="firstCountrySelected" 
                             @ionChange="firstCountrySelected= $event.target.value" 
@@ -57,6 +62,11 @@
                         </ion-select-option>
                 </ion-select>
             </ion-item>
+            
+              <ion-button v-on:click="createChart" expand="block" 
+            router-link="/indicators-chart" size="large" id = "gButton">
+            Generar gráfico
+            </ion-button>
             <!-- <span><br> Primer país: {{firstCountrySelected}} <br></span> -->
             <!-- <span><br> Segundo país: {{secondCountrySelected}}<br></span> -->
             <!-- <span><br> Indicador: {{indicatorSelected}}<br></span> -->
@@ -64,18 +74,13 @@
             <!-- <span><br> Año de término: {{secondYearSelected}}<br></span> -->
         <ion-icon name="arrow-back"></ion-icon>
         </ion-content>
-        <ion-footer>
-            <ion-button v-on:click="createChart" color="primary" expand="full" 
-            router-link="/indicators-chart" size="large">
-            Generar gráfico
-            </ion-button>
-        </ion-footer>
+        
     </ion-page>
 </template>
 
 <script>
 import { IonPage, IonHeader, IonTitle, IonContent, IonButton, IonIcon} from "@ionic/vue";
-
+import router from '../router/index';
 const axios = require('axios');
 
 export default {
@@ -85,7 +90,7 @@ export default {
         IonTitle,
         IonContent,
         IonButton,
-        IonIcon
+        IonIcon,
     },
     data () {
         return {
@@ -164,8 +169,22 @@ export default {
             this.$store.state.userInput.indicatorSelected = this.indicatorSelected;
             this.$store.state.userInput.firstYearSelected = this.firstYearSelected;
             this.$store.state.userInput.secondYearSelected = this.secondYearSelected;
+        },
+
+        redirectToTeam(){
+            router.push({ path: 'team' });
         }
     }
    
 }
+
 </script>
+
+<style scoped>
+#gButton{
+    margin-top: 50px;
+}
+#Rbutton{
+    margin-bottom: 50px;
+}
+</style>
